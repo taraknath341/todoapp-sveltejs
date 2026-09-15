@@ -12,9 +12,6 @@
    }
 
    let techStackShow = $state.raw(null);
-   function toggleTechstack() {
-      techStackShow = techStackShow ? null : true;
-   }
 </script>
 
 <header class="container">
@@ -24,11 +21,11 @@
       </ul>
       <ul>
          <li>
-            <button onclick={toggleTechstack}>🛠️</button>
+            <button onclick={() => (techStackShow = true)}>🛠️</button>
          </li>
          <li><button onclick={toggleTheme}>{icon}</button></li>
       </ul>
    </nav>
 </header>
 
-<TechStack {techStackShow} {toggleTechstack}></TechStack>
+<TechStack bind:techStackShow></TechStack>

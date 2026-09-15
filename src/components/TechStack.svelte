@@ -1,11 +1,14 @@
 <script>
-   let { techStackShow, toggleTechstack } = $props();
+   let { techStackShow = $bindable() } = $props();
 </script>
 
 <dialog open={techStackShow}>
    <article>
       <header>
-         <button aria-label="Close" rel="prev" onclick={toggleTechstack}
+         <button
+            aria-label="Close"
+            rel="prev"
+            onclick={() => (techStackShow = null)}
          ></button>
          <p>
             <strong>🛠️ Tech Stack</strong>
