@@ -1,15 +1,21 @@
 <script>
+   import * as localDB from "../methods/localstorage.js";
    import TechStack from "./TechStack.svelte";
-   let icon = $state.raw("☀️");
+
+   let icon = $state.raw(localDB.getTheme() || "☀️");
+
    function toggleTheme() {
       if (icon === "🌙") {
          document.documentElement.setAttribute("data-theme", "dark");
+         localDB.setTheme(icon);
          icon = "☀️";
       } else {
          document.documentElement.setAttribute("data-theme", "light");
+         localDB.setTheme(icon);
          icon = "🌙";
       }
    }
+   toggleTheme();
 
    let techStackShow = $state.raw(null);
 </script>

@@ -3,8 +3,9 @@
 	import { SvelteSet } from "svelte/reactivity";
 	import Header from "./components/Header.svelte";
 	import Todo from "./components/Todo.svelte";
+	import * as localDB from "./methods/localstorage.js";
 
-	const todos = new SvelteSet();
+	const todos = new SvelteSet(localDB.getTodos());
 	let newTodo = $state.raw("");
 
 	let inputInvalid = $derived.by(() =>
@@ -20,7 +21,12 @@
 			return;
 		}
 		todos.add(newTodo.trim());
+		localDB.setTodos([...todos]);
 		newTodo = "";
+	}
+
+	function pressEnter({ key }) {
+		if (key === "Enter") addTodo();
 	}
 </script>
 
@@ -28,7 +34,12 @@
 
 <main class="container">
 	<div role="group">
-		<input type="text" bind:value={newTodo} aria-invalid={inputInvalid} />
+		<input
+			onkeypress={pressEnter}
+			type="text"
+			bind:value={newTodo}
+			aria-invalid={inputInvalid}
+		/>
 		<button onclick={addTodo}>Add</button>
 	</div>
 	<hr />
