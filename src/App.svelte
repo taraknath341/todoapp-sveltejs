@@ -1,4 +1,5 @@
 <script>
+	import { flip } from "svelte/animate";
 	import { SvelteSet } from "svelte/reactivity";
 	import Header from "./components/Header.svelte";
 	import Todo from "./components/Todo.svelte";
@@ -15,7 +16,7 @@
 	}
 
 	function addTodo() {
-		if (inputInvalid) {
+		if (inputInvalid || !newTodo.trim()) {
 			return;
 		}
 		todos.add(newTodo.trim());
@@ -31,7 +32,9 @@
 		<button onclick={addTodo}>Add</button>
 	</div>
 	<hr />
-	{#each todos as todo}
-		<Todo title={todo} {deleteTodo}></Todo>
+	{#each todos as todo (todo)}
+		<div animate:flip>
+			<Todo title={todo} {deleteTodo}></Todo>
+		</div>
 	{/each}
 </main>
