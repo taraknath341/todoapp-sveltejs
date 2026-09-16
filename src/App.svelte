@@ -14,6 +14,7 @@
 
 	function deleteTodo(title) {
 		todos.delete(title);
+		localDB.setTodos([...todos]);
 	}
 
 	function addTodo() {
@@ -44,7 +45,7 @@
 	</div>
 	<hr />
 	{#each todos as todo (todo)}
-		<div animate:flip>
+		<div animate:flip={{ duration: 300 }}>
 			<Todo title={todo} {deleteTodo}></Todo>
 		</div>
 	{/each}
